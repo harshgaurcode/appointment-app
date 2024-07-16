@@ -1,0 +1,109 @@
+Angular Building Blocks
+Components
+    Definition: Components are the basic building blocks of an Angular application. Each component consists of:
+Template: Defines the view or the user interface of the component.
+Class: Contains the logic and data of the component.
+Metadata: Decorators like @Component that provide information about the component.
+Usage: Components are used to create and manage views and can be nested within other components.
+Services
+    Definition: Services in Angular are used to encapsulate reusable business logic, data access, or any other function that should be shared across components.
+Dependency Injection: Services are typically injected into components using Angular's dependency injection system, ensuring that a single instance of the service is used throughout the application.
+Usage: Commonly used for data fetching, logging, user authentication, and other operations that need to be performed across multiple components.
+Modules
+    Definition: Modules are containers that group related components, services, directives, and pipes together. An Angular application is made up of multiple modules, with the root module being the AppModule.
+NgModule Decorator: The @NgModule decorator is used to define an Angular module. It contains metadata such as declarations, imports, providers, and bootstrap.
+Usage: Modules help in organizing the application structure, making it easier to manage and scale. They also facilitate lazy loading, which improves the application's performance.
+Data Binding in Angular
+One-Way Data Binding
+    Definition: One-way data binding allows the flow of data from the component's class to the template/view. It does not allow data to flow back from the view to the class.
+Syntax: The {{}} interpolation syntax is used for one-way data binding.
+html
+
+
+<p>{{ variableName }}</p>
+Example: Define the variable in the TypeScript class and bind it in the template.
+typescript
+
+
+// component.ts
+export class MyComponent {
+  public myVariable: string = 'Hello, Angular!';
+}
+html
+
+
+<!-- component.html -->
+<p>{{ myVariable }}</p>
+Two-Way Data Binding
+Definition: Two-way data binding allows the flow of data in both directions - from the component class to the view and from the view back to the class.
+Syntax: The [(ngModel)] directive is used for two-way data binding.
+html
+
+
+<input [(ngModel)]="variableName">
+Example: Define the variable in the TypeScript class and bind it in the template.
+typescript
+
+
+// component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.component.html'
+})
+export class MyComponent {
+  public myVariable: string = 'Hello, Angular!';
+}
+html
+
+
+<!-- component.html -->
+<input [(ngModel)]="myVariable">
+<p>{{ myVariable }}</p>
+Using localStorage in Angular
+Definition: localStorage is a web storage API that allows you to store data locally within the user's browser. Data stored in localStorage is persistent and remains even after the browser is closed and reopened.
+Usage: Commonly used to store user preferences, settings, authentication tokens, and other data that needs to persist across sessions.
+Example:
+typescript
+
+
+// To set an item
+localStorage.setItem('key', 'value');
+
+// To get an item
+const value = localStorage.getItem('key');
+
+// To remove an item
+localStorage.removeItem('key');
+
+// To clear all items
+localStorage.clear();
+Angular Service for localStorage: Creating a service to handle localStorage operations can be a good practice.
+typescript
+
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LocalStorageService {
+
+  setItem(key: string, value: string): void {
+    localStorage.setItem(key, value);
+  }
+
+  getItem(key: string): string | null {
+    return localStorage.getItem(key);
+  }
+
+  removeItem(key: string): void {
+    localStorage.removeItem(key);
+  }
+
+  clear(): void {
+    localStorage.clear();
+  }
+}
+This service can be injected into any component or other service where localStorage operations are needed.
